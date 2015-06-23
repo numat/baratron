@@ -34,9 +34,9 @@ $ baratron 192.168.1.100
 {
   "full-scale pressure": 1000.0,
   "led color": "green",
-  "pressure": 746.07721,
+  "pressure": 746.07,
   "pressure units": "torr",
-  "run hours": 29.66111111111111,
+  "run hours": 29.66,
   "system status": "ok",
   "wait hours": 0.0
 }
@@ -51,7 +51,7 @@ For more complex behavior, use the python interface.
 
 ```python
 from baratron import CapacitanceManometer
-cm = CapacitanceManometer("192.168.1.100")
+cm = CapacitanceManometer('192.168.1.100')
 print(cm.get())
 ```
 
@@ -86,18 +86,18 @@ handle responses as they trickle in. For more information, read through
 from baratron import CapacitanceManometer
 from tornado.ioloop import IOLoop, PeriodicCallback
 
-
 def on_response(response):
-    """This function gets run whenever the device responds."""
+    """This function gets run whenever a device responds."""
     print(response)
-
 
 def loop():
     """This function will be called in an infinite loop by tornado."""
-    cm.get(on_response)
+    for sensor in sensors:
+        sensor.get(on_response)
 
+# As an example, this is 100 sensors between 192.168.1.100 and 192.168.1.199
+sensors = [CapacitanceManometer('192.168.1.{}'.format(i)) for i in range(100, 200)]
 
-cm = CapacitanceManometer()
 PeriodicCallback(loop, 500).start()
 IOLoop.current().start()
 ```
