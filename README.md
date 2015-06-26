@@ -32,7 +32,9 @@ interface. You can read the state with
 ```
 $ baratron 192.168.1.100
 {
+  "connected": true,
   "full-scale pressure": 1000.0,
+  "ip": "192.168.1.100",
   "led color": "green",
   "pressure": 746.07,
   "pressure units": "torr",
@@ -60,13 +62,15 @@ a dictionary of the form:
 
 ```python
 {
-  "full-scale pressure": 1000.0, # Maximum pressure
-  "led color": "green",          # Can be green, yellow, red, and blinking
-  "pressure": 746.08,            # Current (digital) pressure
-  "pressure units": "torr",      # Units of pressures
-  "run hours": 29.66,            # Hours since powered on
-  "system status": "ok",         # If not ok, displays error message
-  "wait hours": 0.0              # If non-zero, the system is heating up
+  'connected': True,             # False when request fails
+  'full-scale pressure': 1000.0, # Maximum pressure
+  'ip': '192.168.1.100',         # IP address of device
+  'led color': 'green',          # Can be green, yellow, red, and blinking
+  'pressure': 746.08,            # Current (digital) pressure
+  'pressure units': 'torr',      # Units of pressures
+  'run hours': 29.66,            # Hours since powered on
+  'system status': 'ok',         # If not ok, displays error message
+  'wait hours': 0.0              # If non-zero, the system is heating up
 }
 ```
 

@@ -73,6 +73,7 @@ class CapacitanceManometer(object):
             address: The IP address of the device, as a string.
                 Default '192.168.1.100'.
         """
+        self.ip = address
         self.address = 'http://{}/ToolWeb/Cmd'.format(address)
 
         # There's no documented method to change requested data, but it can be
@@ -100,14 +101,17 @@ class CapacitanceManometer(object):
                 callback(self._process(r), *args, **kwargs)
             self.clients['async'].fetch(request, f)
         else:
-            return self._process(self.clients['sync'].fetch(request))
+            try:
+                return self._process(self.clients['sync'].fetch(request))
+            except:
+                return {'connected': False, 'ip': self.ip}
 
     def _process(self, response):
         """Converts XML sensor response string into a simplified dictionary."""
         if response.error:
-            raise IOError(response.error)
+            return {'connected': False, 'ip': self.ip}
 
-        state = {}
+        state = {'connected': True, 'ip': self.ip}
         tree = ET.fromstring(response.body)
         for item in tree.findall('V'):
             evid, value = item.get("Name"), item.text
@@ -136,6 +140,7 @@ class CapacitanceManometer(object):
 def command_line():
     import argparse
     import json
+    import sys
     from time import time
 
     parser = argparse.ArgumentParser(description="Read an MKS eBaratron "
@@ -159,6 +164,11 @@ def command_line():
             t0 = time()
             while True:
                 d = manometer.get()
+                if not d['connected']:
+                    sys.stderr.write("\nCould not connect to device. Is its "
+                                     "website accessible at 'http://{}'?\n\n"
+                                     .format(args.address))
+                    sys.exit(0)
                 print(("{time:<14.2f} {pressure:<14.1f} {pressure units:<14} "
                        "{full-scale pressure:<14.0f} {system status:<14} "
                        "{led color:<14} {run hours:<14.2f} {wait hours:<14.2f}"
