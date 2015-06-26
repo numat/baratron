@@ -82,12 +82,12 @@ class CapacitanceManometer(object):
                        'full-scale pressure']
         self.clients = {"sync": HTTPClient(), "async": AsyncHTTPClient()}
 
-    def get(self, callback=None):
+    def get(self, callback=None, *args, **kwargs):
         """Retrieves the current state of the device through ToolWeb.
 
         Args:
             callback (Optional): If specified, this function will be triggered
-                asyncronously on response.
+                asyncronously on response. *args and **kwargs are passed.
         Returns:
             If a callback is not specified, this synchronously returns the
             state as a dictionary.
@@ -96,8 +96,9 @@ class CapacitanceManometer(object):
         body = '<PollRequest>{}</PollRequest>'.format(''.join(ids))
         request = HTTPRequest(self.address, 'POST', body=body)
         if callback:
-            self.clients['async'].fetch(request,
-                                        lambda r: callback(self._process(r)))
+            def f(r):
+                callback(self._process(r), *args, **kwargs)
+            self.clients['async'].fetch(request, f)
         else:
             return self._process(self.clients['sync'].fetch(request))
 
