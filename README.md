@@ -47,44 +47,11 @@ $ baratron 192.168.1.100
 or stream a table of data with the `--stream` flag. See `baratron --help`
 for more.
 
-###Python
+###Python (Asynchronous)
 
-For more complex behavior, use the python interface.
-
-```python
-from baratron import CapacitanceManometer
-cm = CapacitanceManometer('192.168.1.100')
-print(cm.get())
-```
-
-If the device is operating at that IP address, this should return an output
-a dictionary of the form:
-
-```python
-{
-  'connected': True,             # False when request fails
-  'full-scale pressure': 1000.0, # Maximum pressure
-  'ip': '192.168.1.100',         # IP address of device
-  'led color': 'green',          # Can be green, yellow, red, and blinking
-  'pressure': 746.08,            # Current (digital) pressure
-  'pressure units': 'torr',      # Units of pressures
-  'run hours': 29.66,            # Hours since powered on
-  'system status': 'ok',         # If not ok, displays error message
-  'wait hours': 0.0              # If non-zero, the system is heating up
-}
-```
-
-These are the default returned fields. The device can return a few additional
-fields, but they are disabled by default (they're generally redundant).
-
-Asynchronous
-============
-
-The above example works for small numbers of sensors. At larger scales,
-the time spent waiting for sensor responses is prohibitive. Asynchronous
-programming allows us to send out all of our requests in parallel, and then
-handle responses as they trickle in. For more information, read through
-[krondo's twisted introduction](http://krondo.com/?page_id=1327).
+Asynchronous programming allows us to send out all of our requests in
+parallel, and then handle responses as they trickle in. For more information,
+read through [krondo's twisted introduction](http://krondo.com/?page_id=1327).
 
 ```python
 from baratron import CapacitanceManometer
