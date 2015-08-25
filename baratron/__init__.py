@@ -114,19 +114,19 @@ class CapacitanceManometer(object):
         state = {'connected': True, 'ip': self.ip}
         tree = ET.fromstring(response.body)
         for item in tree.findall('V'):
-            evid, value = item.get("Name"), item.text
+            evid, value = item.get('Name'), item.text
             key = next(k for k, v in self.evids.items() if v == evid)
             if key == 'pressure units':
                 state[key] = self.pressure_units[int(value)]
             elif key == 'system status':
                 i = int(value)
                 statuses = ([s for bit, s in enumerate(self.status)
-                             if s and bool(i >> bit & 1)] or ["ok"])
+                             if s and bool(i >> bit & 1)] or ['ok'])
                 state[key] = ', '.join(statuses)
             elif key == 'led color':
                 i = int(value)
                 led_statuses = ([s for bit, s in enumerate(self.led)
-                                 if s and bool(i >> bit & 1)] or ["unknown"])
+                                 if s and bool(i >> bit & 1)] or ['unknown'])
                 state[key] = ', '.join(led_statuses)
             elif 'pressure' in key:
                 state[key] = float(value)
@@ -179,5 +179,5 @@ def command_line():
         print(json.dumps(manometer.get(), indent=2, sort_keys=True))
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     command_line()
