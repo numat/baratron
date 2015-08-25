@@ -108,7 +108,7 @@ class CapacitanceManometer(object):
 
     def _process(self, response):
         """Converts XML sensor response string into a simplified dictionary."""
-        if response.error:
+        if response.error or not response.body:
             return {'connected': False, 'ip': self.ip}
 
         state = {'connected': True, 'ip': self.ip}
