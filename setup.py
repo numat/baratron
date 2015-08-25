@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="baratron",
-    version="0.1.1",
+    version="0.1.2",
     description="Python driver for MKS eBaratron capacitance manometers.",
     url="http://github.com/numat/baratron/",
     author="Patrick Fuller",
