@@ -1,4 +1,5 @@
-# baratron
+baratron
+========
 
 Python driver and command line tool for ToolWeb-enabled [MKS eBaratron capacitance manometers](http://www.mksinst.com/product/category.aspx?CategoryID=72).
 
@@ -24,7 +25,7 @@ python setup.py install
 Usage
 =====
 
-###Command Line
+### Command Line
 
 To test your connection and stream real-time data, use the command-line
 interface. You can read the state with
@@ -47,7 +48,7 @@ $ baratron 192.168.1.100
 or stream a table of data with the `--stream` flag. See `baratron --help`
 for more.
 
-###Python (Asynchronous)
+### Python (Asynchronous)
 
 Asynchronous programming allows us to send out all of our requests in
 parallel, and then handle responses as they trickle in. For more information,
