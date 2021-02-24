@@ -75,8 +75,8 @@ class CapacitanceManometer(object):
         """Initialize device.
 
         Note that this constructor does not not connect. This will happen
-        on the first avaiable async call (ie. `await mfc.get()` or
-        `async with FlowController(ip) as mfc`).
+        on the first avaiable async call (ie. `await manometer.get()` or
+        `async with CapacitanceManometer(ip) as manometer`).
 
         Args:
             address: The IP address of the device, as a string.
