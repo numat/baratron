@@ -6,8 +6,10 @@ with open('README.md', 'r') as in_file:
 
 setup(
     name='baratron',
-    version='0.3.0',
+    version='0.3.1',
     description='Python driver for MKS eBaratron capacitance manometers.',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     url='http://github.com/numat/baratron/',
     author='Patrick Fuller',
     author_email='pat@numat-tech.com',
