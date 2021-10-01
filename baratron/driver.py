@@ -71,7 +71,7 @@ class CapacitanceManometer(object):
         'Heater Failure'
     ]
 
-    def __init__(self, address, timeout=1):
+    def __init__(self, address: str, timeout: float = 1.0):
         """Initialize device.
 
         Note that this constructor does not not connect. This will happen
@@ -85,7 +85,7 @@ class CapacitanceManometer(object):
         """
         self.address = f"http://{address.lstrip('http://').rstrip('/')}/ToolWeb/Cmd"
         self.session = None
-        self.timeout = timeout
+        self.Timeout = aiohttp.ClientTimeout(total=timeout)
         ids = ''.join(f'<V Name="{evid}"/>' for evid in self.evids.values())
         body = f'<PollRequest>{ids}</PollRequest>'
         self.request = {
@@ -104,7 +104,7 @@ class CapacitanceManometer(object):
 
     async def connect(self):
         """Connect with device, opening persistent session."""
-        self.session = aiohttp.ClientSession(read_timeout=self.timeout)
+        self.session = aiohttp.ClientSession(timeout=self.Timeout)
 
     async def disconnect(self):
         """Close the underlying session, if it exists."""
