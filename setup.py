@@ -6,15 +6,15 @@ with open('README.md', 'r') as in_file:
 
 setup(
     name='baratron',
-    version='0.2.0',
+    version='0.3.0',
     description='Python driver for MKS eBaratron capacitance manometers.',
     url='http://github.com/numat/baratron/',
     author='Patrick Fuller',
     author_email='pat@numat-tech.com',
     packages=['baratron'],
-    install_requires=['aiohttp'],
+    install_requires=['aiohttp>=3.3'],
     entry_points={
-        'console_script': [('baratron = baratron:command_line')]
+        'console_scripts': [('baratron = baratron:command_line')]
     },
     license='GPLv2',
     classifiers=[
@@ -26,6 +26,8 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
         'Topic :: Scientific/Engineering :: Human Machine Interfaces'
     ]
 )
