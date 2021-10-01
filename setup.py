@@ -14,7 +14,7 @@ setup(
     packages=['baratron'],
     install_requires=['aiohttp'],
     entry_points={
-        'console_script': [('baratron = baratron:command_line')]
+        'console_scripts': [('baratron = baratron:command_line')]
     },
     license='GPLv2',
     classifiers=[
